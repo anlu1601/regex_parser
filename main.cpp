@@ -24,7 +24,14 @@
  * <id> -> <symbol> | <symbol><id>
  * <symbol> -> . | <char> | <char><symbol>
  * <char> -> [a-z]
- 
+
+ * // NEW GRAMMAR:
+ * <program> -> <expression>
+ * <expression> -> <characters>
+ * <characters> -> <char> | <char><symbol> | <dot> | <symbol><symbol>
+ * <symbol> -> <dot> | <star>
+ * <char> -> [a-z]
+ *  
  */
 
 std::string matched = "";
