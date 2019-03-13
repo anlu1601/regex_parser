@@ -7,10 +7,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/anden/NetBeansProjects/regex_parser/op.h</file>
-            <file>file:/home/anden/NetBeansProjects/regex_parser/dot.h</file>
-            <file>file:/home/anden/NetBeansProjects/regex_parser/characters.h</file>
-            <file>file:/home/anden/NetBeansProjects/regex_parser/main.cpp</file>
+            <file>file:/home/anden/Documents/School/prog_teori/regex_parser/dot.h</file>
+            <file>file:/home/anden/Documents/School/prog_teori/regex_parser/op.h</file>
+            <file>file:/home/anden/Documents/School/prog_teori/regex_parser/plus.h</file>
+            <file>file:/home/anden/Documents/School/prog_teori/regex_parser/main.cpp</file>
+            <file>file:/home/anden/Documents/School/prog_teori/regex_parser/program.h</file>
+            <file>file:/home/anden/Documents/School/prog_teori/regex_parser/characters.h</file>
         </group>
     </open-files>
 </project-private>

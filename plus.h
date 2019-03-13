@@ -15,10 +15,18 @@
 #define PLUS_H
 
 #include "op.h"
+#include "characters.h"
 #include "string"
 
-struct plus:op{
+
+struct plus:characters{
     bool eval(std::string text) override {
+        
+        
+        extern std::string matched;
+        matched = matched+text.substr(0, 1);
+        
+        return _id == text.substr(0, 1) || child->eval(text.substr(1));//?????
         
     }
 
@@ -26,6 +34,7 @@ struct plus:op{
         return this->_id;
     }
 
+    characters* child;
     std::string _id;
 };
 

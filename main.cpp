@@ -27,8 +27,8 @@
 
  * // NEW GRAMMAR:
  * <program> -> <expression>
- * <expression> -> <characters>
- * <characters> -> <char> | <char><symbol> | <dot> | <symbol><symbol>
+ * <expression> -> <characters> | <or>
+ * <characters> -> <char> | <char><symbol> | <dot> | <dot><symbol>
  * <symbol> -> <dot> | <star>
  * <char> -> [a-z]
  *  
@@ -98,7 +98,7 @@ plus* either(IT &first, IT &last){
     plus* expr = new plus;
     expr->_id = tk.text;
     std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
-//    expr = chars(first, last);
+    expr->child = chars(first, last);
     return expr;
     
 }
@@ -126,6 +126,13 @@ characters* chars(IT &first, IT &last){
     token tk = next_token(first, last);
     
 //    std::cout << "\n" << tk.id << "=" << token::CHAR << "\n\n";
+    
+    if(tk.id == token::PLUS){
+        
+        plus* expr = either(first, last);
+        return expr;
+        
+    }
     
     if(tk.id == token::DOT){
         
@@ -179,9 +186,10 @@ op* expression(IT first, IT last){
     }
     
     op* expr = chars(first, last);
-    
-    
-    
+    /*if(!chars){
+        op* expr = either(first, last);//????
+        
+    }*/
     
     return expr;
     
@@ -229,7 +237,7 @@ int main(int argc, char** argv) {
 
     
     // This can be ".*"
-    std::string in = "WATER...";
+    std::string in = "FUCK+WATER";
     std::string input = "WATERLOO HELLO";
     
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";
