@@ -21,7 +21,7 @@ struct dot:characters {
     bool eval(std::string text) {
         
         
-        if(!child){
+        if(!operands[0]){
             extern std::string matched;
             matched = matched+text.substr(0, 1);
 //            std::cout << "DOT: " << text.substr(0, 1) << "\n";
@@ -32,7 +32,7 @@ struct dot:characters {
         matched = matched+text.substr(0, 1);
 //        std::cout << "DOT: " << text.substr(0, 1) << "\n";
         
-        return child->eval(text.substr(1));
+        return operands[0]->eval(text.substr(1));
     }
 
     std::string id() {

@@ -87,18 +87,19 @@ token next_token(IT first, IT last){
 }
 
 plus* either(IT &first, IT &last){
+    plus* expr = new plus;
+    expr->operands.push_back(chars(first, last));
     token tk = next_token(first, last);
-    
+       
     if(tk.id != token::PLUS){
         return nullptr;
     }
-    
+
     first++;
     
-    plus* expr = new plus;
-    expr->_id = tk.text;
     std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
-    expr->child = chars(first, last);
+    expr->_id = tk.text;
+    expr->operands.push_back(chars(first, last));
     return expr;
     
 }
@@ -116,7 +117,7 @@ dot* any(IT &first, IT &last){
     dot* expr = new dot;
     expr->_id = tk.text;
 //    std::cout << "DOT:" << tk.id << "-" << tk.text << "\n";
-    expr->child = chars(first, last);
+    expr->operands.push_back(chars(first, last));
     return expr;
     
 }
@@ -127,13 +128,7 @@ characters* chars(IT &first, IT &last){
     
 //    std::cout << "\n" << tk.id << "=" << token::CHAR << "\n\n";
     
-    if(tk.id == token::PLUS){
         
-        plus* expr = either(first, last);
-        return expr;
-        
-    }
-    
     if(tk.id == token::DOT){
         
         dot* expr = any(first, last);
@@ -155,8 +150,8 @@ characters* chars(IT &first, IT &last){
     first++;
     characters* expr = new characters;
     expr->_id = tk.text;
-//    std::cout << tk.id << "-" << tk.text << "\n";
-    expr->child = chars(first, last);
+    std::cout << tk.id << "-" << tk.text << "\n";
+    expr->operands.push_back(chars(first, last));
     return expr;
     
     
@@ -184,12 +179,12 @@ op* expression(IT first, IT last){
     if(*first == *last){
         return nullptr;
     }
+    op* expr = either(first, last) ;
     
-    op* expr = chars(first, last);
-    /*if(!chars){
-        op* expr = either(first, last);//????
+    if(expr == nullptr)//????
+        expr = chars(first, last);
         
-    }*/
+
     
     return expr;
     
@@ -210,7 +205,6 @@ op* parser(IT first, IT last){
 //    }
     
     program* prog = new program;
-    
    
     prog->operands.push_back(expr);
     return prog;
@@ -230,6 +224,14 @@ op* parser(IT first, IT last){
 //    
 }
 
+void printTree(op* root, int level = 1){
+    std::string pre = std::string("                                                                                                                                                                                                                 ", level*2);
+    std::cout<< pre << root->id() << "\n";
+    for(auto child:root->operands){
+//        std::cout << child->id() << "\n";
+        printTree(child, level +1);
+    }
+}
 /*
  * 
  */
@@ -237,7 +239,7 @@ int main(int argc, char** argv) {
 
     
     // This can be ".*"
-    std::string in = "FUCK+WATER";
+    std::string in = "YOU+WATERLOO";
     std::string input = "WATERLOO HELLO";
     
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";
@@ -246,6 +248,7 @@ int main(int argc, char** argv) {
     op* res = parser(in.begin(), in.end());
     //std::cout << res->eval(input) << "\n";
     // This is Waterloo paragraf.
+    printTree(res);
     if(res->eval(input))
         std::cout << matched << std::endl;
     else

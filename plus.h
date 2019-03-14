@@ -19,14 +19,14 @@
 #include "string"
 
 
-struct plus:characters{
+struct plus:op{
     bool eval(std::string text) override {
         
         
-        extern std::string matched;
-        matched = matched+text.substr(0, 1);
+//        extern std::string matched;
+//        matched = matched+text.substr(0, 1);
         
-        return _id == text.substr(0, 1) || child->eval(text.substr(1));//?????
+        return operands[0]->eval(text) || operands[1]->eval(text);//?????
         
     }
 
@@ -34,7 +34,8 @@ struct plus:characters{
         return this->_id;
     }
 
-    characters* child;
+//    characters* lhs;
+//    characters* rhs;
     std::string _id;
 };
 

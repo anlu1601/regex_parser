@@ -21,7 +21,8 @@ struct program:op {
     bool eval(std::string text){
         std::size_t found;
         
-        if(id() != "."){
+        
+        if(id() != "." && id() != "+"){
             found = text.find(id());
         }else{
             found = 0;
@@ -32,8 +33,9 @@ struct program:op {
         return operands[0]->eval(text.substr(found));
     }
     std::string id() override{
-        return operands[0]->id();
+        return "program";
     }
+    
 
 };
 
