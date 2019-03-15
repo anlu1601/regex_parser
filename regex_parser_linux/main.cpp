@@ -17,6 +17,7 @@
 #include "characters.h"
 #include "dot.h"
 #include "plus.h"
+#include "star.h"
 
 /*
  * <match> -> <expr>
@@ -88,6 +89,27 @@ token next_token(IT first, IT last){
     return tk;
 }
 
+star* repeat(IT &first, IT &last){
+    
+    std::string ch = "";
+    ch = ch + *first;
+    token tk = next_token(first, last);
+    
+    if(tk.id != token::STAR){
+        return nullptr;
+    }
+    
+    first++;
+    
+    star* expr = new star;
+    expr->_id = ch;
+    expr->operands.push_back(chars(first, last));
+    expr->operands.push_back(repeat(first, last));
+    return expr;
+    
+    
+}
+
 plus* either(IT first, IT last){
     plus* expr = new plus;
     expr->operands.push_back(chars(first, last));
@@ -99,7 +121,7 @@ plus* either(IT first, IT last){
 
     first++;
     
-    std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
+//    std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
     expr->_id = tk.text;
     expr->operands.push_back(chars(first, last));
     return expr;
@@ -130,6 +152,10 @@ characters* chars(IT &first, IT &last){
     
 //    std::cout << "\n" << tk.id << "=" << token::CHAR << "\n\n";
     
+    if(tk.id == token::STAR){
+        star* expr = repeat(first, last);
+        return expr;
+    }
         
     if(tk.id == token::DOT){
         
@@ -243,7 +269,7 @@ int main(int argc, char** argv) {
 
     
     // This can be ".*"
-    std::string in = "HELP+......";
+    std::string in = "WATERLO*";
     std::string input = "WATERLOO HELLO";
     
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";

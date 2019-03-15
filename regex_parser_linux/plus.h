@@ -21,11 +21,7 @@
 
 struct plus:op{
     bool eval(std::string text) override {
-        
-        
-//        extern std::string matched;
-//        matched = matched+text.substr(0, 1);
-        
+                
         return operands[0]->eval(text) || operands[1]->eval(text);//?????
         
     }
@@ -34,8 +30,6 @@ struct plus:op{
         return this->_id;
     }
 
-//    characters* lhs;
-//    characters* rhs;
     std::string _id;
 };
 

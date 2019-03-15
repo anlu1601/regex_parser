@@ -5,31 +5,32 @@
  */
 
 /* 
- * File:   dot.h
+ * File:   star.h
  * Author: anden
  *
- * Created on March 7, 2019, 4:11 PM
+ * Created on March 15, 2019, 6:28 PM
  */
 
-#ifndef DOT_H
-#define DOT_H
+#ifndef STAR_H
+#define STAR_H
 
 #include "characters.h"
 #include <iostream>
 
 
-struct dot:characters {
+struct star:characters {
     bool eval(std::string text) {
         
         extern std::string matched;
         matched = matched+text.substr(0, 1);
         
-        if(!operands[0]){
-            
-            return true;
+        int counter = 1;
+        while(id() == text.substr(0, 1)){
+            return operands[1]->eval(text.substr(counter));
+            counter++;
         }
         
-        return operands[0]->eval(text.substr(1));
+        return operands[0]->eval(text.substr(counter));
     }
 
     std::string id() {
@@ -39,5 +40,5 @@ struct dot:characters {
     std::string _id;
 };
 
-#endif /* DOT_H */
+#endif /* STAR_H */
 

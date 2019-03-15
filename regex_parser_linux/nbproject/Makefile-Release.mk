@@ -40,7 +40,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/op.o \
 	${OBJECTDIR}/plus.o \
-	${OBJECTDIR}/program.o
+	${OBJECTDIR}/program.o \
+	${OBJECTDIR}/star.o
 
 
 # C Compiler Flags
@@ -96,6 +97,11 @@ ${OBJECTDIR}/program.o: program.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/program.o program.cpp
+
+${OBJECTDIR}/star.o: star.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/star.o star.cpp
 
 # Subprojects
 .build-subprojects:

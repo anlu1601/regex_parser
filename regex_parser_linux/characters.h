@@ -19,10 +19,10 @@ struct characters : op {
 
     bool eval(std::string text) override {
 
-                    extern std::string matched;
+        extern std::string matched;
 
         if (!operands[0]){
-//            std::cout << "CHAR_CHILD: " << text.substr(0, 1) << "\n";
+            
             if(_id == text.substr(0, 1))
                 matched = matched+_id;
 
@@ -32,7 +32,6 @@ struct characters : op {
         
         if(_id == text.substr(0, 1))
             matched = matched+_id;
-//        std::cout << "CHAR: " << text.substr(0, 1) << "\n";
 
         return _id == text.substr(0, 1) && operands[0]->eval(text.substr(1));
     }
