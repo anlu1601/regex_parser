@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=regex_parser
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/regex_parser
+CND_ARTIFACT_NAME_Debug=regex_parser_linux
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/regex_parser_linux
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
-CND_PACKAGE_NAME_Debug=regexparser.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/regexparser.tar
+CND_PACKAGE_NAME_Debug=regexparserlinux.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/regexparserlinux.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux
-CND_ARTIFACT_NAME_Release=regex_parser
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/regex_parser
+CND_ARTIFACT_NAME_Release=regex_parser_linux
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/regex_parser_linux
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
-CND_PACKAGE_NAME_Release=regexparser.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/regexparser.tar
+CND_PACKAGE_NAME_Release=regexparserlinux.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/regexparserlinux.tar
 #
 # include compiler specific variables
 #

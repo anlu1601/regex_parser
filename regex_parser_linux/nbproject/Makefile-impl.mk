@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=regex_parser
+PROJECTNAME=regex_parser_linux
 
 # Active Configuration
 DEFAULTCONF=Debug

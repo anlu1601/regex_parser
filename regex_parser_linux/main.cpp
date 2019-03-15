@@ -86,7 +86,7 @@ token next_token(IT first, IT last){
     return tk;
 }
 
-plus* either(IT &first, IT &last){
+plus* either(IT first, IT last){
     plus* expr = new plus;
     expr->operands.push_back(chars(first, last));
     token tk = next_token(first, last);
@@ -181,9 +181,11 @@ op* expression(IT first, IT last){
     }
     op* expr = either(first, last) ;
     
+    
     if(expr == nullptr)//????
         expr = chars(first, last);
         
+    
 
     
     return expr;
@@ -228,8 +230,8 @@ void printTree(op* root, int level = 1){
     std::string pre = std::string("                                                                                                                                                                                                                 ", level*2);
     std::cout<< pre << root->id() << "\n";
     for(auto child:root->operands){
-//        std::cout << child->id() << "\n";
-        printTree(child, level +1);
+        if(child != nullptr)         
+            printTree(child, level +1);
     }
 }
 /*
@@ -239,7 +241,7 @@ int main(int argc, char** argv) {
 
     
     // This can be ".*"
-    std::string in = "YOU+WATERLOO";
+    std::string in = "YOU";
     std::string input = "WATERLOO HELLO";
     
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";
@@ -249,6 +251,7 @@ int main(int argc, char** argv) {
     //std::cout << res->eval(input) << "\n";
     // This is Waterloo paragraf.
     printTree(res);
+    
     if(res->eval(input))
         std::cout << matched << std::endl;
     else
