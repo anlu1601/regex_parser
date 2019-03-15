@@ -28,8 +28,10 @@
  * // NEW GRAMMAR:
  * <program> -> <expression>
  * <expression> -> <characters> | <or>
- * <characters> -> <char> | <char><symbol> | <dot> | <dot><symbol>
- * <symbol> -> <dot> | <star>
+ * <or> -> <char> + <char>
+ * <characters> -> <char> | <char><symbol> | . | .<symbol>
+ * <symbol> -> . | <star>
+ * <star> -> <character>*
  * <char> -> [a-z]
  *  
  */
@@ -150,7 +152,7 @@ characters* chars(IT &first, IT &last){
     first++;
     characters* expr = new characters;
     expr->_id = tk.text;
-    std::cout << tk.id << "-" << tk.text << "\n";
+//    std::cout << tk.id << "-" << tk.text << "\n";
     expr->operands.push_back(chars(first, last));
     return expr;
     
@@ -241,7 +243,7 @@ int main(int argc, char** argv) {
 
     
     // This can be ".*"
-    std::string in = "YOU";
+    std::string in = "HELP+......";
     std::string input = "WATERLOO HELLO";
     
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";
