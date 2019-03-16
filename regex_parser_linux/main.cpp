@@ -92,7 +92,9 @@ token next_token(IT first, IT last){
 star* repeat(IT &first, IT &last){
     
     std::string ch = "";
-    ch = ch + *first;
+    ch = ch + *(first-1);
+//    std::cout << ch << "\n";
+    
     token tk = next_token(first, last);
     
     if(tk.id != token::STAR){
@@ -102,9 +104,11 @@ star* repeat(IT &first, IT &last){
     first++;
     
     star* expr = new star;
-    expr->_id = ch;
+    expr->_id = tk.text;
+    expr->_ch = ch;
+//    std::cout << "REP:" << tk.id << "-" << tk.text << "\n";
+
     expr->operands.push_back(chars(first, last));
-    expr->operands.push_back(repeat(first, last));
     return expr;
     
     
@@ -140,7 +144,7 @@ dot* any(IT &first, IT &last){
     
     dot* expr = new dot;
     expr->_id = tk.text;
-//    std::cout << "DOT:" << tk.id << "-" << tk.text << "\n";
+//    std::cout << "DOT:" << tk.id << "-" << tk.text << "\n";<
     expr->operands.push_back(chars(first, last));
     return expr;
     
@@ -152,14 +156,16 @@ characters* chars(IT &first, IT &last){
     
 //    std::cout << "\n" << tk.id << "=" << token::CHAR << "\n\n";
     
-    if(tk.id == token::STAR){
-        star* expr = repeat(first, last);
-        return expr;
-    }
+    
         
     if(tk.id == token::DOT){
         
         dot* expr = any(first, last);
+        return expr;
+    }
+    
+    if(tk.id == token::STAR){
+        star* expr = repeat(first, last);
         return expr;
     }
     
@@ -269,7 +275,7 @@ int main(int argc, char** argv) {
 
     
     // This can be ".*"
-    std::string in = "WATERLO*";
+    std::string in = "......O* HELLO";
     std::string input = "WATERLOO HELLO";
     
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";

@@ -22,21 +22,46 @@ struct star:characters {
     bool eval(std::string text) {
         
         extern std::string matched;
-        matched = matched+text.substr(0, 1);
         
-        int counter = 1;
-        while(id() == text.substr(0, 1)){
-            return operands[1]->eval(text.substr(counter));
+        std::string dot = get_ch();
+        
+        if(get_ch() == ".")
+            set_ch(text.substr(0, 1));
+        
+        if(get_ch() != text.substr(0, 1))
+            return false;
+        
+        
+        int counter = 0;
+        while(get_ch() == text.substr(0, 1) && get_ch() != ""){
+            
+            matched = matched+text.substr(0, 1);
             counter++;
+            text = text.substr(1);
+            if(dot == ".")
+                set_ch(text.substr(0, 1));
         }
         
-        return operands[0]->eval(text.substr(counter));
+        if(!operands[0]){    
+            return true;
+        }
+        
+        return operands[0]->eval(text);
     }
 
     std::string id() {
         return this->_id;
     }
-
+    
+    std::string get_ch(){
+        return this->_ch;
+    }
+    
+    void set_ch(std::string ch){
+        _ch = ch;
+    }
+    
+    std::string _ch;
     std::string _id;
 };
 
