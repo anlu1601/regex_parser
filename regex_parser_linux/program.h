@@ -27,7 +27,7 @@ struct program:op {
 //        
 //        
 //        
-        if(child_Id() != "." && child_Id() != "+"){
+        if(child_Id() != "." && child_Id() != "+" && child_Id() != "("){
             found = text.find(child_Id());
             if(found != std::string::npos){
                 return operands[0]->eval(text.substr(found));

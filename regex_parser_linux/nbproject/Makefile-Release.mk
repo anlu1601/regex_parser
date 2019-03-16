@@ -36,9 +36,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/characters.o \
+	${OBJECTDIR}/chooser.o \
 	${OBJECTDIR}/dot.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/op.o \
+	${OBJECTDIR}/parentheses.o \
 	${OBJECTDIR}/plus.o \
 	${OBJECTDIR}/program.o \
 	${OBJECTDIR}/star.o
@@ -73,6 +75,11 @@ ${OBJECTDIR}/characters.o: characters.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/characters.o characters.cpp
 
+${OBJECTDIR}/chooser.o: chooser.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/chooser.o chooser.cpp
+
 ${OBJECTDIR}/dot.o: dot.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -87,6 +94,11 @@ ${OBJECTDIR}/op.o: op.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/op.o op.cpp
+
+${OBJECTDIR}/parentheses.o: parentheses.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parentheses.o parentheses.cpp
 
 ${OBJECTDIR}/plus.o: plus.cpp
 	${MKDIR} -p ${OBJECTDIR}

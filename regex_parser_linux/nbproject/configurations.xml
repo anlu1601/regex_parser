@@ -5,8 +5,10 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>characters.h</itemPath>
+      <itemPath>chooser.h</itemPath>
       <itemPath>dot.h</itemPath>
       <itemPath>op.h</itemPath>
+      <itemPath>parentheses.h</itemPath>
       <itemPath>plus.h</itemPath>
       <itemPath>program.h</itemPath>
       <itemPath>star.h</itemPath>
@@ -19,9 +21,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>characters.cpp</itemPath>
+      <itemPath>chooser.cpp</itemPath>
       <itemPath>dot.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>op.cpp</itemPath>
+      <itemPath>parentheses.cpp</itemPath>
       <itemPath>plus.cpp</itemPath>
       <itemPath>program.cpp</itemPath>
       <itemPath>star.cpp</itemPath>
@@ -55,6 +59,10 @@
       </item>
       <item path="characters.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="chooser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="chooser.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="dot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="dot.h" ex="false" tool="3" flavor2="0">
@@ -64,6 +72,10 @@
       <item path="op.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="op.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="parentheses.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="parentheses.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="plus.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -103,6 +115,10 @@
       </item>
       <item path="characters.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="chooser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="chooser.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="dot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="dot.h" ex="false" tool="3" flavor2="0">
@@ -112,6 +128,10 @@
       <item path="op.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="op.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="parentheses.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="parentheses.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="plus.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -23,17 +23,24 @@ struct characters : op {
 
         if (!operands[0]){
             
-            if(_id == text.substr(0, 1))
-                matched = matched+_id;
+            if(id() == ")")
+                return true;
+            
+            if(id() == text.substr(0, 1))
+                matched = matched+id();
 
 
-            return _id == text.substr(0, 1);
+            return id() == text.substr(0, 1);
         }
         
-        if(_id == text.substr(0, 1))
-            matched = matched+_id;
+        if(id() == text.substr(0, 1))
+            matched = matched+id();
 
-        return _id == text.substr(0, 1) && operands[0]->eval(text.substr(1));
+        if(id() == ")")
+            return operands[0]->eval(text.substr(1));
+        
+        
+        return id() == text.substr(0, 1) && operands[0]->eval(text.substr(1));
     }
     std::string id() override {
         return this->_id;

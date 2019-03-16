@@ -14,10 +14,12 @@
 #include <fstream>
 #include "op.h"
 #include "program.h"
+#include "chooser.h"
 #include "characters.h"
 #include "dot.h"
 #include "plus.h"
 #include "star.h"
+#include "parentheses.h"
 
 /*
  * <match> -> <expr>
@@ -28,8 +30,9 @@
 
  * // NEW GRAMMAR:
  * <program> -> <expression>
- * <expression> -> <characters> | <or>
- * <or> -> <char> + <char>
+ * <expression> -> <capture> | <or> | <characters>
+ * <capture> -> <expression>
+ * <or> -> <characters> + <characters>
  * <characters> -> <char> | <char><symbol> | . | .<symbol>
  * <symbol> -> . | <star>
  * <star> -> <character>*
@@ -42,7 +45,7 @@ std::string matched = "";
 
 struct token {
     enum id{
-        ID, SYMBOL, DOT, CHAR, PLUS, STAR, END_PROGRAM
+        ID, LEFT_PARENTHESES, RIGHT_PARENTHESES, DOT, CHAR, PLUS, STAR, END_PROGRAM
     };
     
     id id;
@@ -51,7 +54,10 @@ struct token {
 
 using IT = std::string::iterator;
 characters* chars(IT &first, IT &last);
+op* expression(IT first, IT last);
+op* parser(IT first, IT last);
 
+    
 token next_token(IT first, IT last){
     
     
@@ -81,12 +87,42 @@ token next_token(IT first, IT last){
             tk.text = "*";
         break;
         
+        case '(':
+            tk.id = token::LEFT_PARENTHESES;
+            tk.text = "(";
+        break;
+        
+        case ')':
+            tk.id = token::RIGHT_PARENTHESES;
+            tk.text = ")";
+        break;
+            
+        
         default:
             tk.id = token::CHAR;
             tk.text = std::string(first, first + 1);
     }
     
     return tk;
+}
+
+parentheses* capture(IT &first, IT &last){
+    parentheses* expr = new parentheses;
+    
+    expr->operands.push_back(chars(first, last));
+    
+    token tk = next_token(first, last);
+       
+    if(tk.id != token::LEFT_PARENTHESES){
+        return nullptr;
+    }
+
+    first++;
+    
+//    std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
+    expr->_id = tk.text;
+    expr->operands.push_back(expression(first, last));
+    return expr;
 }
 
 star* repeat(IT &first, IT &last){
@@ -127,7 +163,7 @@ plus* either(IT first, IT last){
     
 //    std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
     expr->_id = tk.text;
-    expr->operands.push_back(chars(first, last));
+    expr->operands.push_back(expression(first, last));
     return expr;
     
 }
@@ -155,9 +191,9 @@ characters* chars(IT &first, IT &last){
     token tk = next_token(first, last);
     
 //    std::cout << "\n" << tk.id << "=" << token::CHAR << "\n\n";
+
+           
     
-    
-        
     if(tk.id == token::DOT){
         
         dot* expr = any(first, last);
@@ -168,10 +204,13 @@ characters* chars(IT &first, IT &last){
         star* expr = repeat(first, last);
         return expr;
     }
-    
-    if(tk.id != token::CHAR){
-        return nullptr;
+    if(tk.id != token::RIGHT_PARENTHESES){
+        if(tk.id != token::CHAR){
+            return nullptr;
+        }
     }
+    
+    
     /*while(tk.id == token::CHAR){
         first++;
         character* expr = new character;
@@ -184,7 +223,7 @@ characters* chars(IT &first, IT &last){
     first++;
     characters* expr = new characters;
     expr->_id = tk.text;
-//    std::cout << tk.id << "-" << tk.text << "\n";
+    std::cout << tk.id << "-" << tk.text << "\n";
     expr->operands.push_back(chars(first, last));
     return expr;
     
@@ -213,16 +252,24 @@ op* expression(IT first, IT last){
     if(*first == *last){
         return nullptr;
     }
-    op* expr = either(first, last) ;
     
+    IT start = first;
+    op* expr = capture(first, last);
     
-    if(expr == nullptr)//????
+    if(expr == nullptr){ 
+        first = start;
+        expr = either(first, last);
+    }
+    
+    if(expr == nullptr){
+        first = start;
         expr = chars(first, last);
-        
+    }
     
-
+    chooser* choice = new chooser;
+    choice->operands.push_back(expr);
     
-    return expr;
+    return choice;
     
 }
 
@@ -275,8 +322,8 @@ int main(int argc, char** argv) {
 
     
     // This can be ".*"
-    std::string in = "......O* HELLO";
-    std::string input = "WATERLOO HELLO";
+    std::string in = "WATERLOO(YOU+HELLO)";
+    std::string input = "WATERLOO HELLO THERE";
     
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";
     
@@ -289,6 +336,7 @@ int main(int argc, char** argv) {
     if(res->eval(input))
         std::cout << matched << std::endl;
     else
+        std::cout << matched << std::endl;
         std::exit(EXIT_FAILURE);
     /*
     auto b = in.begin();
