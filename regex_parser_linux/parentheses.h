@@ -19,7 +19,7 @@
 #include "string"
 
 
-struct parentheses:op{
+struct parentheses:characters{
     bool eval(std::string text) override {
                 
                                                 // this text should be less than whole string

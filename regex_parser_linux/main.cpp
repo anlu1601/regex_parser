@@ -31,7 +31,7 @@
  * // NEW GRAMMAR:
  * <program> -> <expression>
  * <expression> -> <capture> | <or> | <characters>
- * <capture> -> <expression>
+ * <capture> -> (<expression>)
  * <or> -> <characters> + <characters>
  * <characters> -> <char> | <char><symbol> | . | .<symbol>
  * <symbol> -> . | <star>
@@ -54,6 +54,7 @@ struct token {
 
 using IT = std::string::iterator;
 characters* chars(IT &first, IT &last);
+plus* either(IT first, IT last);
 op* expression(IT first, IT last);
 op* parser(IT first, IT last);
 
@@ -108,9 +109,7 @@ token next_token(IT first, IT last){
 
 parentheses* capture(IT &first, IT &last){
     parentheses* expr = new parentheses;
-    
-    expr->operands.push_back(chars(first, last));
-    
+        
     token tk = next_token(first, last);
        
     if(tk.id != token::LEFT_PARENTHESES){
@@ -119,9 +118,21 @@ parentheses* capture(IT &first, IT &last){
 
     first++;
     
-//    std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
+    std::cout << "(:" << tk.id << "-" << tk.text << "\n";
     expr->_id = tk.text;
-    expr->operands.push_back(expression(first, last));
+    expr->operands.push_back(either(first, last));
+    
+    tk = next_token(first, last);
+    std::cout << *first << "\n";
+    
+    if(tk.id != token::RIGHT_PARENTHESES){
+        return nullptr;
+    }
+    
+    first++;
+    
+    expr->operands.push_back(chars(first, last));
+    
     return expr;
 }
 
@@ -163,7 +174,7 @@ plus* either(IT first, IT last){
     
 //    std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
     expr->_id = tk.text;
-    expr->operands.push_back(expression(first, last));
+    expr->operands.push_back(chars(first, last));
     return expr;
     
 }
@@ -189,10 +200,14 @@ dot* any(IT &first, IT &last){
 characters* chars(IT &first, IT &last){
 
     token tk = next_token(first, last);
-    
+//    std::cout << *first << "\n";
 //    std::cout << "\n" << tk.id << "=" << token::CHAR << "\n\n";
 
-           
+    if(tk.id == token::LEFT_PARENTHESES){
+        parentheses* expr = capture(first, last);
+        return expr;
+        
+    }
     
     if(tk.id == token::DOT){
         
@@ -204,12 +219,12 @@ characters* chars(IT &first, IT &last){
         star* expr = repeat(first, last);
         return expr;
     }
-    if(tk.id != token::RIGHT_PARENTHESES){
+    
+//    if(tk.id != token::RIGHT_PARENTHESES){
         if(tk.id != token::CHAR){
             return nullptr;
         }
-    }
-    
+//    }
     
     /*while(tk.id == token::CHAR){
         first++;
@@ -223,7 +238,7 @@ characters* chars(IT &first, IT &last){
     first++;
     characters* expr = new characters;
     expr->_id = tk.text;
-    std::cout << tk.id << "-" << tk.text << "\n";
+//    std::cout << tk.id << "-" << tk.text << "\n";
     expr->operands.push_back(chars(first, last));
     return expr;
     
@@ -253,16 +268,13 @@ op* expression(IT first, IT last){
         return nullptr;
     }
     
-    IT start = first;
-    op* expr = capture(first, last);
+//    IT start = first;
     
-    if(expr == nullptr){ 
-        first = start;
-        expr = either(first, last);
-    }
+    op* expr = either(first, last);
+        
     
     if(expr == nullptr){
-        first = start;
+//        first = start;
         expr = chars(first, last);
     }
     
@@ -322,7 +334,8 @@ int main(int argc, char** argv) {
 
     
     // This can be ".*"
-    std::string in = "WATERLOO(YOU+HELLO)";
+    // "WATERLOO (YOU+HELLO) THERE"
+    std::string in = "HELLO + YOU";
     std::string input = "WATERLOO HELLO THERE";
     
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";

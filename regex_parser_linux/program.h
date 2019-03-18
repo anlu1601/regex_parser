@@ -21,26 +21,27 @@ struct program:op {
     bool eval(std::string text){
         
         
-        std::size_t found = 0;
+//        std::size_t found = 0;
+////        
+////        std::cout << operands[0]->id() << "\n";
+////        
+////        
+////        
+//        if(child_Id() != "." && child_Id() != "+" && child_Id() != "("){
+//            found = text.find(child_Id());
+//            if(found != std::string::npos){
+//                return operands[0]->eval(text.substr(found));
+//
+//            }
+//            else{
+//                return operands[0]->eval(text);
 //        
-//        std::cout << operands[0]->id() << "\n";
-//        
-//        
-//        
-        if(child_Id() != "." && child_Id() != "+" && child_Id() != "("){
-            found = text.find(child_Id());
-            if(found != std::string::npos){
-                return operands[0]->eval(text.substr(found));
+//            }
+//        }else{
+//            return operands[0]->eval(text);
+//        }
 
-            }
-            else{
-                return operands[0]->eval(text);
-        
-            }
-        }else{
-            return operands[0]->eval(text);
-        }
-
+        return operands[0]->eval(text);
             
     }
     std::string id() override{
