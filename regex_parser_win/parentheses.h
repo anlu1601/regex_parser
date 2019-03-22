@@ -5,24 +5,25 @@
  */
 
 /* 
- * File:   plus.h
+ * File:   parentheses.h
  * Author: anden
  *
- * Created on March 11, 2019, 6:22 PM
+ * Created on March 16, 2019, 11:26 PM
  */
 
-#ifndef PLUS_H
-#define PLUS_H
+#ifndef PARENTHESES_H
+#define PARENTHESES_H
 
 #include "op.h"
 #include "characters.h"
 #include "string"
 
 
-struct plus:op{
+struct parentheses:op{
     bool eval(std::string text) override {
                 
-        return operands[0]->eval(text) || operands[1]->eval(text);//?????
+                                                // this text should be less than whole string
+        return operands[0]->eval(text) && operands[1]->eval(text);
         
     }
 
@@ -33,5 +34,6 @@ struct plus:op{
     std::string _id;
 };
 
-#endif /* PLUS_H */
+
+#endif /* PARENTHESES_H */
 

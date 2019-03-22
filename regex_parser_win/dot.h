@@ -15,22 +15,19 @@
 #define DOT_H
 
 #include "characters.h"
+#include <iostream>
 
 
 struct dot:characters {
     bool eval(std::string text) {
         
-        
-        if(!operands[0]){
-            extern std::string matched;
-            matched = matched+text.substr(0, 1);
-//            std::cout << "DOT: " << text.substr(0, 1) << "\n";
-            return true;
-        }
-        
         extern std::string matched;
         matched = matched+text.substr(0, 1);
-//        std::cout << "DOT: " << text.substr(0, 1) << "\n";
+        
+        if(!operands[0]){
+            
+            return true;
+        }
         
         return operands[0]->eval(text.substr(1));
     }

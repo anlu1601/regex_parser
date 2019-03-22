@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>characters.h</itemPath>
+      <itemPath>chooser.h</itemPath>
       <itemPath>dot.h</itemPath>
       <itemPath>op.h</itemPath>
       <itemPath>plus.h</itemPath>
@@ -50,6 +51,8 @@
       </item>
       <item path="characters.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="chooser.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="dot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="dot.h" ex="false" tool="3" flavor2="0">
@@ -92,6 +95,8 @@
       <item path="characters.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="characters.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="chooser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="dot.cpp" ex="false" tool="1" flavor2="0">
       </item>

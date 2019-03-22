@@ -14,37 +14,33 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 #include "op.h"
-#include <iostream>
 
 struct characters : op {
 
     bool eval(std::string text) override {
-       
+
         extern std::string matched;
-//        matched = matched+id();
 
         if (!operands[0]){
             
-//            std::cout << "CHAR_CHILD: " << matched << "\n";
-            if(_id == text.substr(0, 1)){
+            if(id() == ")")
+                return true;
             
+            if(id() == text.substr(0, 1))
                 matched = matched+id();
-            }
 
-            return _id == text.substr(0, 1);
+
+            return id() == text.substr(0, 1);
         }
         
-        
+        if(id() == text.substr(0, 1))
+            matched = matched+id();
 
-        if(_id == text.substr(0, 1)){
-            
-                matched = matched+id();
-        }
+        if(id() == ")")
+            return operands[0]->eval(text.substr(1));
         
         
-//        std::cout << "CHAR: " << matched << "\n";
-
-        return _id == text.substr(0, 1) && operands[0]->eval(text.substr(1));
+        return id() == text.substr(0, 1) && operands[0]->eval(text.substr(1));
     }
     std::string id() override {
         return this->_id;
