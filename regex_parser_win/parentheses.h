@@ -22,9 +22,20 @@
 struct parentheses:op{
     bool eval(std::string text) override {
                 
-                                                // this text should be less than whole string
-        return operands[0]->eval(text) && operands[1]->eval(text);
         
+//        std::cout << operands[0]->id() << "n\";
+//        std::cout << operands[1]->id() << "n\";
+//        
+//        if((auto t = operands[0]) && (auto tt = operands[1]))
+//            return operands[0]->eval(text) && operands[1]->eval(text);
+//        else if(auto ttt = operands[0])
+//            return operands[0]->eval(text);
+//        else
+//            return operands[1]->eval(text);
+//                                                
+//        
+        return operands[0]->eval(text) && operands[1]->eval(text);
+
     }
 
     std::string id() override {

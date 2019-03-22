@@ -29,6 +29,9 @@ struct characters : op {
             if(id() == text.substr(0, 1))
                 matched = matched+id();
 
+            if(id() != " "){
+                matched = matched + " ";
+            }
 
             return id() == text.substr(0, 1);
         }

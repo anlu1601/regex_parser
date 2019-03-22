@@ -20,11 +20,11 @@
 
 struct chooser:op{
     bool eval(std::string text){
-        
+          
         
         std::size_t found = 0;
 //        
-        std::cout << operands[0]->id() << "\n";
+//        std::cout << operands[0]->id() << "\n";
 //        std::cout << operands[0]->operands[0]->id() << "\n";
 //        
 //        
@@ -43,7 +43,14 @@ struct chooser:op{
 
                 }
             }else{
-                c->operands[0];
+                if(auto t = c->operands[0]){
+                    c = c->operands[0];
+                    ch_Id = c->id();
+                }else{
+                    c = c->operands[1];
+                    ch_Id = c->id();
+                }
+                
 //                return operands[0]->eval(text);
             }
         }

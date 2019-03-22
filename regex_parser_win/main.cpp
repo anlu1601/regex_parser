@@ -223,7 +223,7 @@ characters* chars(IT &first, IT &last){
     first++;
     characters* expr = new characters;
     expr->_id = tk.text;
-    std::cout << tk.id << "-" << tk.text << "\n";
+//    std::cout << tk.id << "-" << tk.text << "\n";
     expr->operands.push_back(chars(first, last));
     return expr;
     
@@ -266,10 +266,10 @@ op* expression(IT first, IT last){
         expr = chars(first, last);
     }
     
-    //chooser* choice = new chooser;
-    //choice->operands.push_back(expr);
+    chooser* choice = new chooser;
+    choice->operands.push_back(expr);
     
-    return expr;
+    return choice;
     
 }
 
@@ -321,23 +321,28 @@ void printTree(op* root, int level = 1){
 int main(int argc, char** argv) {
 
     
-    // This can be ".*"WATERLOO(YOU+HELLO)
-    std::string in = "HELLO";
+    // This can be ".*"
+    std::string in = "W(YOU+HELLO)THERE";
     std::string input = "WATERLOO HELLO THERE";
     
+    std::string true_in = "promise to (love+hate)";
+    //std::string true_input = "Waterloo I was defeated, you won the war Waterloo promise to love you for ever more Waterloo couldn't escape if I wanted to Waterloo knowing my fate is to be with you Waterloo finally facing my Waterloo";
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";
+    std::string tets = "promise to love you";
     
-    
-    op* res = parser(in.begin(), in.end());
+    op* res = parser(true_in.begin(), true_in.end());
     //std::cout << res->eval(input) << "\n";
     // This is Waterloo paragraf.
     printTree(res);
+   
     
-    if(res->eval(input))
+    if(res->eval(tets)){
         std::cout << matched << std::endl;
-    else
+    }else{
         std::cout << matched << std::endl;
         std::exit(EXIT_FAILURE);
+    }
+    
     /*
     auto b = in.begin();
     
