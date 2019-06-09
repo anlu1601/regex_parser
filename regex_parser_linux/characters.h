@@ -11,14 +11,17 @@
  * Created on February 28, 2019, 3:35 PM
  */
 
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef CHARACTERS_H
+#define CHARACTERS_H
 #include "op.h"
+#include "iostream"
 
 struct characters : op {
 
     bool eval(std::string text) override {
 
+        std::cout << id() << " " << text.substr(0, 1) << "\n"; 
+        
         extern std::string matched;
 
         if (!operands[0]){
@@ -53,5 +56,5 @@ struct characters : op {
 
 
 
-#endif /* CHARACTER_H */
+#endif /* CHARACTERS_H */
 

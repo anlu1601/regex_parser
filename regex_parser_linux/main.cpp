@@ -335,7 +335,7 @@ int main(int argc, char** argv) {
     
     // This can be ".*"
     // "WATERLOO (YOU+HELLO) THERE"
-    std::string in = "HELLO + YOU";
+    std::string in = "HELLO +YOU";
     std::string input = "WATERLOO HELLO THERE";
     
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";
@@ -346,12 +346,14 @@ int main(int argc, char** argv) {
     // This is Waterloo paragraf.
     printTree(res);
     
-    if(res->eval(input))
+    
+    if(res->eval(input)){
         std::cout << matched << std::endl;
-    else
+    }else{
         std::cout << matched << std::endl;
         std::exit(EXIT_FAILURE);
-    /*
+    }
+        /*
     auto b = in.begin();
     
     while(b != in.end()){
