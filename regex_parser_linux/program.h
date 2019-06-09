@@ -27,19 +27,20 @@ struct program:op {
 //        
 //        
 //        
-        if(child_Id() != "." && child_Id() != "+" && child_Id() != "("){
-            found = text.find(child_Id());
-            if(found != std::string::npos){
-                return operands[0]->eval(text.substr(found));
-
-            }
-            else{
-                return operands[0]->eval(text);
-        
-            }
-        }else{
+//        if(child_Id() != "." && child_Id() != "+" && child_Id() != "("){
+//            found = text.find(child_Id());
+//            if(found != std::string::npos){
+//                return operands[0]->eval(text.substr(found));
+//
+//            }
+//            else{
+//                return operands[0]->eval(text);
+//        
+//            }
+//        }else{
+//            return operands[0]->eval(text);
+//        }
             return operands[0]->eval(text);
-        }
 
             
     }

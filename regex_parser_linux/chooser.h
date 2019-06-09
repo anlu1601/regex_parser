@@ -5,7 +5,7 @@
  */
 
 /* 
- * File:   chooser.h
+ * File:   expression.h
  * Author: anden
  *
  * Created on March 17, 2019, 12:23 AM
@@ -24,29 +24,31 @@ struct chooser:op{
         
         std::size_t found = 0;
 //        
-        std::cout << operands[0]->id() << "\n";
+//        std::cout << operands[0]->id() << "\n";
 //        std::cout << operands[0]->operands[0]->id() << "\n";
 //        
 //        
-        op* c = operands[0];
-        std::string ch_Id = c->id();
+//        op* c = operands[0];
+//        std::string ch_Id = c->id();
+//        
+//        while(true){
+//            if(ch_Id != "." && ch_Id != "+" && ch_Id != "(" && ch_Id != " "){
+//                found = text.find(ch_Id);
+//                if(found != std::string::npos){
+//                    return operands[0]->eval(text.substr(found));
+//
+//                }
+//                else{
+//                    return operands[0]->eval(text);
+//
+//                }
+//            }else{
+//                c->operands[0];
+////                return operands[0]->eval(text);
+//            }
+//        }
         
-        while(true){
-            if(ch_Id != "." && ch_Id != "+" && ch_Id != "(" && ch_Id != " "){
-                found = text.find(ch_Id);
-                if(found != std::string::npos){
-                    return operands[0]->eval(text.substr(found));
-
-                }
-                else{
-                    return operands[0]->eval(text);
-
-                }
-            }else{
-                c->operands[0];
-//                return operands[0]->eval(text);
-            }
-        }
+        return operands[0]->eval(text);
 
             
     }

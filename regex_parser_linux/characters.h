@@ -14,13 +14,22 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 #include "op.h"
+#include "iostream"
 
 struct characters : op {
 
     bool eval(std::string text) override {
 
+//        std::cout << text << " ";
+
+        
         extern std::string matched;
 
+//        std::cout << matched << " ";
+        
+        if(id() != text.substr(0, 1))
+            return false;
+        
         if (!operands[0]){
             
             if(id() == ")")
@@ -32,12 +41,31 @@ struct characters : op {
 
             return id() == text.substr(0, 1);
         }
+//        
+//        if(id() == text.substr(0, 1))
+//            matched = matched+id();
+//
+//        if(id() == ")")
+//            return operands[0]->eval(text.substr(1));
+//        std::cout << ">>"<< matched << "<<";
         
-        if(id() == text.substr(0, 1))
-            matched = matched+id();
+        if(matched == ""){
+            for(int i = 0; i < text.size(); i++){
+                if(id() == text.substr(0, 1)){
+                    matched = matched + id();
+                    // if instead of return??    
+                    return id() == text.substr(0, 1) && operands[0]->eval(text.substr(1));
+                                
+                        
+//                    break;
+                }
+                
+//                std::cout << text << " ";
 
-        if(id() == ")")
-            return operands[0]->eval(text.substr(1));
+                text = text.substr(1);
+            }
+        }else if(id() == text.substr(0, 1))
+            matched = matched+id();
         
         
         return id() == text.substr(0, 1) && operands[0]->eval(text.substr(1));
