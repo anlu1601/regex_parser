@@ -27,8 +27,8 @@ struct characters : op {
 
 //        std::cout << matched << " ";
         
-        if(id() != text.substr(0, 1))
-            return false;
+//        if(id() != text.substr(0, 1))
+//            return false;
         
         if (!operands[0]){
             
@@ -48,15 +48,22 @@ struct characters : op {
 //        if(id() == ")")
 //            return operands[0]->eval(text.substr(1));
 //        std::cout << ">>"<< matched << "<<";
+//            std::cout << "KUUUUUUUUUUUUUKEN" << " ";
+
         
         if(matched == ""){
             for(int i = 0; i < text.size(); i++){
+
                 if(id() == text.substr(0, 1)){
                     matched = matched + id();
-                    // if instead of return??    
-                    return id() == text.substr(0, 1) && operands[0]->eval(text.substr(1));
-                                
-                        
+                    // if instead of return??
+//                    std::cout << matched << " ";
+                    if (operands[0]->eval(text.substr(1))){
+                        return true;
+//                        matched = "";
+//                        break;
+                    }else
+                        matched = "";
 //                    break;
                 }
                 
@@ -66,7 +73,7 @@ struct characters : op {
             }
         }else if(id() == text.substr(0, 1))
             matched = matched+id();
-        
+         
         
         return id() == text.substr(0, 1) && operands[0]->eval(text.substr(1));
     }
