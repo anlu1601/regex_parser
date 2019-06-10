@@ -31,6 +31,28 @@ struct characters : op {
 //            return false;
         
         if (!operands[0]){
+            if(matched == ""){
+                for(int i = 0; i < text.size(); i++){
+
+                if(id() == text.substr(0, 1)){
+                    matched = matched + id();
+//                    std::cout << matched << " ";
+                    // evaluate the rest of the characters
+                        return true;
+//                        matched = "";
+//                        break;
+                    // if some next character don't match, reset matched and continue.
+                    }else
+                        matched = "";
+//                    break;
+                }
+                
+//                std::cout << text << " ";
+
+                // decrease text by one
+                text = text.substr(1);
+            
+            }
             
             if(id() == ")")
                 return true;
@@ -47,21 +69,23 @@ struct characters : op {
 //
 //        if(id() == ")")
 //            return operands[0]->eval(text.substr(1));
-//        std::cout << ">>"<< matched << "<<";
-//            std::cout << "KUUUUUUUUUUUUUKEN" << " ";
 
-        
+
+        // if nothing matched before
         if(matched == ""){
-            for(int i = 0; i < text.size(); i++){
+            
+            // Look for starting character
+            for(int i = 0; i < text.size();){
 
                 if(id() == text.substr(0, 1)){
                     matched = matched + id();
-                    // if instead of return??
 //                    std::cout << matched << " ";
+                    // evaluate the rest of the characters
                     if (operands[0]->eval(text.substr(1))){
                         return true;
 //                        matched = "";
 //                        break;
+                    // if some next character don't match, reset matched and continue.
                     }else
                         matched = "";
 //                    break;
@@ -69,6 +93,7 @@ struct characters : op {
                 
 //                std::cout << text << " ";
 
+                // decrease text by one
                 text = text.substr(1);
             }
         }else if(id() == text.substr(0, 1))

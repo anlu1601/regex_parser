@@ -23,24 +23,33 @@ struct star:characters {
         
         extern std::string matched;
         
-        std::string dot = get_ch();
+//        std::string dot = get_ch();
+//        
+//        if(get_ch() == ".")
+//            set_ch(text.substr(0, 1));
+//        
+//        if(get_ch() != text.substr(0, 1))
+//            return false;
         
-        if(get_ch() == ".")
-            set_ch(text.substr(0, 1));
+        std::string ch = text.substr(0, 1);
+        std::string star = text.substr(0, 1);
         
-        if(get_ch() != text.substr(0, 1))
-            return false;
-        
-        
-        int counter = 0;
-        while(get_ch() == text.substr(0, 1) && get_ch() != ""){
+        while(ch == star){
+            matched = matched + ch;
             
-            matched = matched+text.substr(0, 1);
-            counter++;
             text = text.substr(1);
-            if(dot == ".")
-                set_ch(text.substr(0, 1));
+            star = text.substr(0 ,1);
         }
+        
+//        int counter = 0;
+//        while(get_ch() == text.substr(0, 1) && get_ch() != ""){
+//            
+//            matched = matched+text.substr(0, 1);
+//            counter++;
+//            text = text.substr(1);
+//            if(dot == ".")
+//                set_ch(text.substr(0, 1));
+//        }
         
         if(!operands[0]){    
             return true;
