@@ -25,10 +25,14 @@ struct characters : op {
         
         extern std::string matched;
 
-//        std::cout << matched << " ";
+        std::cout << matched << "SSS " << std::endl;
+        std::cerr << matched << "SSS " << std::endl;
         
-//        if(id() != text.substr(0, 1))
-//            return false;
+        if(id() != "W")
+            return false;
+        
+        if(id() == ")")
+            return operands[0]->eval(text);
         
         if (!operands[0]){
             if(matched == ""){
@@ -39,7 +43,7 @@ struct characters : op {
 //                    std::cout << matched << " ";
                     // evaluate the rest of the characters
                         return true;
-//                        matched = "";
+//                        matched = ""; 
 //                        break;
                     // if some next character don't match, reset matched and continue.
                     }else
@@ -55,8 +59,6 @@ struct characters : op {
             }else if(id() != text.substr(0, 1))
                 matched = "";
             
-            if(id() == ")")
-                return true;
             
             if(id() == text.substr(0, 1))
                 matched = matched+id();
