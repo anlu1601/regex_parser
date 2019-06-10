@@ -325,7 +325,7 @@ int main(int argc, char** argv) {
 //    std::string in = "WATERLOO(YOU+HELLO)";
 //    std::string input = "WATERLOO HELLO THERE";
     
-    std::string in = "W+ YOU";
+    std::string in = ".*+ YOU";
     std::string input = "WATERLOO HELLO THERE";
     
     

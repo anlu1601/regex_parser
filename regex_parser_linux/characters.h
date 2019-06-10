@@ -52,7 +52,8 @@ struct characters : op {
                 // decrease text by one
                 text = text.substr(1);
             
-            }
+            }else if(id() != text.substr(0, 1))
+                matched = "";
             
             if(id() == ")")
                 return true;
