@@ -7,6 +7,7 @@
       <itemPath>characters.h</itemPath>
       <itemPath>chooser.h</itemPath>
       <itemPath>dot.h</itemPath>
+      <itemPath>impl.h</itemPath>
       <itemPath>op.h</itemPath>
       <itemPath>parentheses.h</itemPath>
       <itemPath>plus.h</itemPath>
@@ -67,6 +68,8 @@
       </item>
       <item path="dot.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="impl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="op.cpp" ex="false" tool="1" flavor2="0">
@@ -122,6 +125,8 @@
       <item path="dot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="dot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="impl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

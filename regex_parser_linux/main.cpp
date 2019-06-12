@@ -20,6 +20,8 @@
 #include "plus.h"
 #include "star.h"
 #include "parentheses.h"
+#include "impl.h"
+
 
 /*
  * <match> -> <expr>
@@ -33,12 +35,28 @@
  * <expression> -> <capture> | <or> | <characters>
  * <capture> -> <expression>
  * <or> -> <characters> + <characters>
- * <characters> -> <char> | <char><symbol> | . | .<symbol>
- * <symbol> -> . | <star>
+ * <characters> -> <char> | <char><symbol> | <dot><symbol>
+ * <symbol> -> <dot> | <star>
  * <star> -> <character>*
  * <char> -> [a-z]
- *  
+ * <dot> -> .
+ * 
+ * 
+ * // NEWEST GRAMMAR
+ * <program> -> <expression>
+ * <expression> -> <capture>[<expression>] | <or> | <characters>[<expression>]
+ * <capture> -> <expression>
+ * <or> -> <characters> + <characters>
+ * <characters> -> <char>[<symbol>] | <dot>[<symbol>]
+ * <symbol> -> <dot> | <star>
+ * <star> -> <character>*
+ * <char> -> [a-z]
+ * <dot> -> .
+ * 
+ * 
  */
+
+
 
 std::string matched = "";
 
@@ -109,6 +127,7 @@ token next_token(IT first, IT last){
 parentheses* capture(IT &first, IT &last){
     parentheses* expr = new parentheses;
     
+    // left of parenthesis
     expr->operands.push_back(chars(first, last));
     
     token tk = next_token(first, last);
@@ -121,6 +140,8 @@ parentheses* capture(IT &first, IT &last){
     
 //    std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
     expr->_id = tk.text;
+    
+    // inside the parenthesis
     expr->operands.push_back(expression(first, last));
     return expr;
 }
@@ -152,6 +173,8 @@ star* repeat(IT &first, IT &last){
 
 plus* either(IT first, IT last){
     plus* expr = new plus;
+    
+    // left hand side
     expr->operands.push_back(chars(first, last));
     token tk = next_token(first, last);
        
@@ -163,7 +186,9 @@ plus* either(IT first, IT last){
     
 //    std::cout << "PLUS:" << tk.id << "-" << tk.text << "\n";
     expr->_id = tk.text;
-    expr->operands.push_back(expression(first, last));
+    
+    // right hand side
+    expr->operands.push_back(chars(first, last));
     return expr;
     
 }
@@ -256,14 +281,21 @@ op* expression(IT first, IT last){
     IT start = first;
     op* expr = capture(first, last);
     
-    if(expr == nullptr){ 
-        first = start;
-        expr = either(first, last);
+    if(expr != nullptr){ 
+        auto subexpr = expression(first, last);
+        if(subexpr){
+            return new cap_exp_impl(expr, subexpr);
+        }
+        return new cap(expr);
     }
-    
-    if(expr == nullptr){
-        first = start;
-        expr = chars(first, last);
+// characters
+    expr = chars(first, last);
+    if(expr){
+        auto subexpr = expression(first, last);
+        if(subexpr){
+            return new chars_exp_impl(expr, subexpr);
+        }
+        return new chars(expr);        
     }
     
     chooser* choice = new chooser;
@@ -325,7 +357,7 @@ int main(int argc, char** argv) {
 //    std::string in = "WATERLOO(YOU+HELLO)";
 //    std::string input = "WATERLOO HELLO THERE";
     
-    std::string in = ".*+ YOU";
+    std::string in = "WATERLOO (HELLO) THERE";
     std::string input = "WATERLOO HELLO THERE";
     
     
