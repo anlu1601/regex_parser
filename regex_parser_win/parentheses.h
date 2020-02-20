@@ -34,7 +34,7 @@ struct parentheses:op{
 //            return operands[1]->eval(text);
 //                                                
 //        
-        return operands[0]->eval(text) && operands[1]->eval(text);
+        return operands[0]->eval(text) && operands[1]->eval(text) && operands[2]->eval(text);
 
     }
 

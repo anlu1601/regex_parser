@@ -14,42 +14,38 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
-#include "op.h"
 #include <iostream>
+#include <string>
+
+#include "op.h"
 
 struct program:op {
-    bool eval(std::string text){
+    std::string _id;
+    
+    bool eval(IT& begin, IT& end)override{
         
-        
-        std::size_t found = 0;
-//        
-//        std::cout << operands[0]->id() << "\n";
-//        
-//        
-//        
-        if(child_Id() != "." && child_Id() != "+" && child_Id() != "("){
-            found = text.find(child_Id());
-            if(found != std::string::npos){
-                return operands[0]->eval(text.substr(found));
-
+        while(begin != end){
+            auto current_begin = begin;
+            if(operands[0]->eval(current_begin, end)){
+                if(operands[0]->id() == "OUT"){
+                    std::cout << "OUT in program" << std::endl;
+                }else if(operands[0]->id() == "EXPRESSION"){
+                    std::cout << std::string(begin, current_begin) << std::endl;
+                }
+                return true;
             }
-            else{
-                return operands[0]->eval(text);
-        
-            }
-        }else{
-            return operands[0]->eval(text);
+            begin++;
         }
-
-            
+        std::cout << "false" << std::endl;
+        return false;
+        
+        
     }
     std::string id() override{
         return "program";
     }
     
-    std::string child_Id() {
-         return operands[0]->id();
-    }
+    
 
 };
 

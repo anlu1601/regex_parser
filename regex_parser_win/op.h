@@ -14,11 +14,14 @@
 #ifndef OP_H
 #define OP_H
 
+#include <iostream>
 #include <string>
 #include <vector>
+using IT = std::string::iterator;
+
 
 struct op {
-    virtual bool eval(std::string text) = 0;
+    virtual bool eval(IT& begin, IT& end) = 0;
     virtual std::string id() = 0;
     std::vector<op*> operands;
 };

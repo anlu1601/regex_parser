@@ -1,7 +1,3 @@
-build/Debug/Cygwin-Windows/plus.o: plus.cpp plus.h op.h characters.h
+build/Debug/Cygwin-Windows/plus.o: plus.cpp plus.h
 
 plus.h:
-
-op.h:
-
-characters.h:

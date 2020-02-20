@@ -1,18 +1,14 @@
-build/Debug/Cygwin-Windows/main.o: main.cpp op.h program.h chooser.h \
- characters.h dot.h plus.h star.h parentheses.h
+build/Debug/Cygwin-Windows/main.o: main.cpp op.h program.h expression.h \
+ one_expr.h string_expr.h or_expr.h
 
 op.h:
 
 program.h:
 
-chooser.h:
+expression.h:
 
-characters.h:
+one_expr.h:
 
-dot.h:
+string_expr.h:
 
-plus.h:
-
-star.h:
-
-parentheses.h:
+or_expr.h:
