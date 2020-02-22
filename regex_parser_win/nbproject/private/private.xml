@@ -7,12 +7,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Documents/School/regex_parser/regex_parser_win/op.h</file>
             <file>file:/D:/Documents/School/regex_parser/regex_parser_win/program.h</file>
             <file>file:/D:/Documents/School/regex_parser/regex_parser_win/one_expr.h</file>
             <file>file:/D:/Documents/School/regex_parser/regex_parser_win/string_expr.h</file>
             <file>file:/D:/Documents/School/regex_parser/regex_parser_win/expression.h</file>
             <file>file:/D:/Documents/School/regex_parser/regex_parser_win/or_expr.h</file>
             <file>file:/D:/Documents/School/regex_parser/regex_parser_win/main.cpp</file>
+            <file>file:/D:/Documents/School/regex_parser/regex_parser_win/more_expr.h</file>
         </group>
     </open-files>
 </project-private>

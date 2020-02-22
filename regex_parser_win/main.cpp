@@ -19,6 +19,7 @@
 #include "one_expr.h"
 #include "string_expr.h"
 #include "or_expr.h"
+#include "repeat_expr.h"
 //#include "chooser.h"
 //#include "characters.h"
 //#include "dot.h"
@@ -74,7 +75,9 @@ op* parser(IT &first, IT& last);
 op* get_one_expr(IT &first, IT &last);
 op* get_string_expr(IT &first, IT &last);
 op* make_or_expr(IT &first, IT &last);
-op* make_more_exprs(IT &first, IT &last);
+op* make_multiple_exprs(IT &first, IT &last);
+op* create_repeat_expr(IT &first, IT &last);
+op* create_any_expr(IT& first, IT& last);
 void print_ast_tree(op*& o, int i);
     
 token next_token(IT& first, IT& last){
@@ -275,6 +278,46 @@ characters* chars(IT &first, IT &last){
 }
 */
 
+op* create_repeat_expr(IT& first, IT& last){
+    if(first == last){
+        return nullptr;
+    }
+    
+    
+    IT start = first;
+    op* lhs_expr = get_string_expr(first, last);
+    if(!lhs_expr){
+//        lhs_expr = create_any_expr(first, last);
+        if(!lhs_expr){
+            first = start;
+            return nullptr;
+        }
+    }
+    
+    token tk = next_token(first, last);
+    if(tk.id != token::STAR){
+        first = start;
+        return nullptr;
+    }
+    
+    first++;
+    op* expr = new expression;
+    repeat_expr* repeated_char = new repeat_expr;
+    op* rhs_expr = get_expression(first, last);
+    
+    if(lhs_expr->id() == "."){
+        repeated_char->_id = ".";
+    }else {
+        repeated_char->_id = *(lhs_expr->id().end() - 1);
+    }
+    
+    expr->operands.push_back(lhs_expr);
+    expr->operands.push_back(repeated_char);
+    expr->operands.push_back(rhs_expr);
+    return expr;
+    
+}
+
 op* make_or_expr(IT &first, IT &last){
     if(first == last){
         return nullptr;
@@ -319,9 +362,9 @@ op* get_expression(IT &first, IT &last){
         return nullptr;
     }
     
-    op* one_or_more_expr = make_more_exprs(first, last);
+    op* one_or_more_expr = get_one_expr(first, last);
     if(!one_or_more_expr){
-        one_or_more_expr = get_one_expr(first, last);
+        one_or_more_expr = make_multiple_exprs(first, last);
     }
     // single expression = expr
 //    op* expr = get_one_expr(first, last);
@@ -354,7 +397,7 @@ op* get_expression(IT &first, IT &last){
     
 }
 
-op* make_more_exprs(IT &first, IT &last){
+op* make_multiple_exprs(IT &first, IT &last){
     if(first == last){
         return nullptr;
     }
@@ -379,11 +422,14 @@ op* get_one_expr(IT &first, IT &last){
 //    op* expr = get_string_expr(first, last);
 //    if(!expr){
 //        return nullptr;
-//    }
+//    }create_repeat_expr
     IT start = first;
     op* which_expr = make_or_expr(first, last);
     if(!which_expr){
-        which_expr = get_string_expr(first, last);
+        which_expr = create_repeat_expr(first, last);
+        if(!which_expr){
+            which_expr = get_string_expr(first, last);
+        }
     }
     
     
@@ -415,7 +461,9 @@ op* get_string_expr(IT& first, IT& last)
         str->_id += tk.text;
         tk = next_token(++first, last);
     }
-    if(start == first) return nullptr;
+    if(start == first){
+        return nullptr;
+    }
     return str;
 }
 
@@ -490,8 +538,8 @@ int main(int argc, char** argv) {
 //    std::cout << *in.begin() << " " << *(in.end()-1) << "\n";
 //    std::string tets = "promise to love you";
     
-    std::string input = "yyyy + love";
-//    std::string input = "defeated";
+//    std::string input = "yyyy + love";
+    std::string input = "Waterlo* promise";
 //    std::string input = "love + yyyyy";
     IT source_begin = source.begin();
     IT source_end = source.end();

@@ -23,6 +23,8 @@ struct string_expr:op{
                 begin = begin + _id.size();
                 return true;
             }
+        
+            /*// uncomment if not working
             auto a = end; 
             if (begin == end) {
                 while(begin == end){
@@ -34,9 +36,8 @@ struct string_expr:op{
                 return true;
                 }
                 a--;
-            }
-
-            }
+                }
+            }*/
             
             
            
